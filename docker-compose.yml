@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  homepage:
+    container_name: man-hua-web-1
+    image: node:18.20.2
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: '1g'
+    ports:
+      - "3000:3000"
+    volumes:
+      - /opt/1panel/apps/homepage/config:/app/config
+      - /opt/1panel/apps/homepage/source:/app
+    working_dir: /app
+    command: sh -c "yarn install && yarn build && yarn start"
+    environment:
+      - TZ=Asia/Shanghai
